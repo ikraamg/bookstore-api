@@ -18,7 +18,7 @@ class Api::V1::BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book
+      render json: @book, status: :created, location: api_v1_book_url(@book)
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::BooksController < ApplicationController
   # PATCH/PUT /books/1
   def update
     if @book.update(book_params)
-      render json: @book
+      render json: {status: 'SUCCESS', message:'Book Updated', data:@book}
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -36,6 +36,7 @@ class Api::V1::BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
+    render json: {status: 'SUCCESS', message:'Deleted Book', data:@book}
   end
 
   private
