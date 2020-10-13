@@ -27,7 +27,7 @@ class Api::V1::BooksController < ApplicationController
   # PATCH/PUT /books/1
   def update
     if @book.update(book_params)
-      render json: {status: 'SUCCESS', message:'Book Updated', data:@book}
+      render json: { status: 'SUCCESS', message: 'Book Updated', data: @book }
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -36,17 +36,18 @@ class Api::V1::BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
-    render json: {status: 'SUCCESS', message:'Deleted Book', data:@book}
+    render json: { status: 'SUCCESS', message: 'Deleted Book', data: @book }
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def book_params
-      params.require(:book).permit(:title, :author, :category, :percentage)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def book_params
+    params.require(:book).permit(:title, :author, :category, :percentage)
+  end
 end
